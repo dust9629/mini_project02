@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시글 작성</title>
+    <link rel="stylesheet" href="/kej/css/style.css">
+</head>
+<body>
+    <div class="board_wrap">
+        <!-- <h1><a href="/kej/index.html">로고</a></h1> -->
+        <h2 class="board_tit">게시글 작성하기</h2>
+
+        <form id="writeFrm">
+            <div class="write_info">
+                <div class="writer">작성자 <input type="text" name="writer"></div>
+                <div class="title">제목 <input type="text" name="subject"></div>
+            </div>
+            <div>내용 : <textarea name="content"></textarea></div>
+            <input type="submit" value="글작성">
+        </form>
+        <a href="./list.html"><</a>
+    </div>
+    <script src="../js/write.js"></script>
+</body>
+</html>

@@ -1,12 +1,27 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+html,
+body {
+  font-size: 62.5%;
+}
 .App {
   text-align: center;
-  background-color: #000;
+  background-color: lightgrey;
   color: #fff;
+  font-size: 1.8rem;
 }
-
 nav {
   width: 100%;
   display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(3px);
+  padding: 1rem 0;
 }
 .nav_wrap {
   width: 100%;
@@ -14,10 +29,85 @@ nav {
   /* background-color: lightblue; */
   display: flex;
   align-items: center;
-  font-size: 18px;
+  font-size: 1.8rem;
+}
+.mo_nav_wrap {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  /* background-color: red; */
+  background-color: rgba(0, 0, 0, 0.7);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+.mo_nav_wrap p {
+  font-size: 2.2rem;
+  cursor: pointer;
+  background-color: red;
+  width: 10rem;
+  padding: 1.6rem 1rem;
+  position: fixed;
+  right: 0;
+  top: 0;
+}
+.mo_nav {
+  list-style: none;
+  width: 100%;
+  height: 100vh;
+  font-size: 4rem;
+  padding: 2rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav_wrap.left {
+  padding-left: 6rem;
+}
+.nav_wrap.right {
+  justify-content: flex-end;
+  padding-right: 6rem;
 }
 .nav_wrap li {
   list-style: none;
+  cursor: pointer;
+  padding: 1.6rem 1.8rem;
+  border: 1px solid #ffffff80;
+  border-radius: 2.5rem;
+}
+.nav_wrap.right li + li {
+  margin-left: 1.5rem;
+}
+.section01 {
+  background-color: #000;
+}
+.section01 .main_txt {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 90vh;
+}
+.section01 h1 {
+  font-size: 20rem;
+}
+
+.section02 {
+  background-color: darkgray;
+}
+
+.section03 {
+  background-color: black;
+}
+@media screen and (max-width: 650px) {
+  nav {
+    display: none;
+  }
+  .mo_nav_wrap {
+    display: block;
+  }
 }
 @keyframes App-logo-spin {
   from {

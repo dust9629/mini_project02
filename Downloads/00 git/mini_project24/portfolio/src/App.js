@@ -1,85 +1,100 @@
 import React, { useState } from "react";
-// import { useState } from 'react';
-// import Greeting from "./components/Greeting";
-// import MyForm from "./components/MyForm";
-// import useToggle from "./hooks/useToggle";
+import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom"; // Updated import
+import styled from "styled-components";
 import "./App.css";
+import TeamProject from "./components/TeamProject";
+import Contact from "./components/Contact";
+import AtoZ from "./components/AtoZ";
+import ImageGallery from "./components/ImageGallery";
+
+// main img
 
 function App() {
-  // const [username, setUsername] = useState("");
-  // const { isOn, toggle } = useToggle(false);
-  let [like, likeCount] = useState(0);
+  const StyledLink = styled(Link)`
+    font-size: 2rem;
+    font-weight: 500;
+    list-style: none;
+    cursor: pointer;
+    padding: 1.6rem 1.8rem;
+    border: 1px solid #00000080;
+    border-radius: 2.5rem;
+    text-decoration: none;
+    color: #000;
+  `;
+
   let [modal, setModal] = useState(false);
-
-  function likeFn(current) {
-    likeCount(like++);
-  }
-
   let [title, titleList] = useState(["Ecommerce", "Solution", "Build"]);
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
   return (
-    <div className="App">
-      {/* <h1>{username}님, 환영합니다.</h1>
-      <MyForm
-        onChange={(event) => {
-          setUsername(event.target.value);
-        }}
-      />
+    <div>
+      <Router>
+        <div className="App">
+          <div className="top_btn" onClick={scrollToTop}>
+            Back To Top
+          </div>
+          <nav>
+            <ul className="nav_wrap left">
+              <li>
+                <StyledLink to="/contact">Contact</StyledLink>
+              </li>
+            </ul>
+            <ul className="nav_wrap right">
+              <li>
+                <StyledLink to="/team-project">Team_project</StyledLink>
+              </li>
+              <li>
+                <StyledLink to="/a-z">A-Z</StyledLink>
+              </li>
+            </ul>
+          </nav>
 
-      <button
-        onClick={() => {
-          toggle();
-        }}
-      >
-        {isOn === true ? "on" : "off"}
-      </button> */}
-      {/* 상단 menu */}
-      <nav>
-        <ul className="nav_wrap left">
-          <li>Contact</li>
-        </ul>
-        <ul className="nav_wrap right">
-          <li>Team_project</li>
-          <li>A-Z</li>
-        </ul>
-      </nav>
-      <div className="mo_nav_wrap">
-        <p
-          onClick={() => {
-            setModal(true);
-          }}
-        >
-          menu
-        </p>
-        {modal == true ? <NavMobile /> : null}
-      </div>
+          <Routes>
+            <Route path="/team-project" element={<TeamProject />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/a-z" element={<AtoZ />} />
+          </Routes>
 
-      {/* 메인_01 */}
+          <div className="mo_nav_wrap">
+            <p onClick={() => setModal(true)}>menu</p>
+            {modal ? <NavMobile /> : null}
+          </div>
+        </div>
+      </Router>
+
+      {/* main - section01 */}
       <div className="section01">
+        <div className="contents">
+          <div className="ImgCont">
+            <ImageGallery />
+          </div>
+        </div>
         <div className="main_txt">
           <h1>Front-end</h1>
         </div>
-        <div className="contents"></div>
-        {/* <div className="like">
-          좋아요👍
-          <span onClick={likeFn}> {like}</span>
-        </div> */}
+        <div className="bottom_txt">
+          <p>2021_2024 - ⓒ Lindsey_dust9629</p>
+          <h6>
+            <span>16:34:44:29</span>
+          </h6>
+        </div>
       </div>
 
-      {/* 메인_02 */}
+      {/* section02 */}
       <div className="section02">
         <h2>Contents</h2>
         <ul>
-          {/* <li>{title[0]}</li>
-          <li>{title[1]}</li>
-          <li>{title[2]}</li> */}
-
-          {title.map(function (a, i) {
-            return (
-              <li key={i}>
-                {i + 1}.{a}
-              </li>
-            );
-          })}
+          {title.map((a, i) => (
+            <li key={i}>
+              {i + 1}.{a}
+            </li>
+          ))}
         </ul>
         <button
           onClick={() => {
@@ -92,22 +107,12 @@ function App() {
         </button>
       </div>
 
-      {/* 메인_03 */}
+      {/* section03 */}
       <div className="section03">
         <h3>Color Palette</h3>
       </div>
     </div>
   );
-
-  function Contents() {
-    let [project, setProject] = useState(["카페24", "솔루션"]);
-    return (
-      <div className="cont_box">
-        <h4 className="cont_tit">솔루션</h4>
-        <div>{project[0]}</div>
-      </div>
-    );
-  }
 
   function NavMobile() {
     return (
@@ -121,5 +126,3 @@ function App() {
 }
 
 export default App;
-
-// ---------------

@@ -1,0 +1,24 @@
+.color-picker {
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+.background,
+.fontcolor {
+  flex: 1;
+  margin: 0 10px;
+}
+.background h6,
+.fontcolor h6 {
+  margin-bottom: 10px;
+}
+.background ul,
+.fontcolor ul {
+  list-style: none;
+  padding: 0;
+}
+.background ul li,
+.fontcolor ul li {
+  margin-bottom: 10px;
+}

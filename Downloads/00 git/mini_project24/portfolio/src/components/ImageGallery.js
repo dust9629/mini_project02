@@ -14,8 +14,8 @@ function ImageGallery() {
   useEffect(() => {
     imageNames.forEach((name, index) => {
       // 랜덤 지연 시간 설정
-      const baseDelay = 1000; // 기본 1초
-      const randomFactor = Math.random() * 600; // 0초에서 0.6초 사이의 랜덤 값
+      const baseDelay = 100; // 기본 .1초
+      const randomFactor = Math.random() * 100; // 0초에서 0.6초 사이의 랜덤 값
       const delay = baseDelay + index * 1000 + randomFactor;
 
       setTimeout(() => {
@@ -32,7 +32,7 @@ function ImageGallery() {
           .catch((error) => console.error("Failed to load images", error));
       }, delay);
     });
-  }, []); // 의존성 배열을 비워 컴포넌트 마운트 시 한 번만 실행되도록 함
+  }); // 의존성 배열을 비워 컴포넌트 마운트 시 한 번만 실행되도록 함
 
   return (
     <div>

@@ -6,6 +6,7 @@
 html,
 body {
   font-size: 62.5%;
+  scroll-behavior: smooth;
 }
 .App {
   text-align: center;
@@ -107,6 +108,23 @@ nav {
   height: 100vh;
   overflow: hidden;
 }
+.section01 .main_bg {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  /* background: url(./assets/videos/main_video.mp4); */
+}
+
+#mainVideo {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  object-fit: cover; /* 비디오가 컨테이너를 꽉 채우도록 */
+}
+
 .section01 .main_txt {
   width: 100%;
   position: absolute;
@@ -114,7 +132,12 @@ nav {
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
+  background: transparent;
   /* mix-blend-mode: overlay; */
+}
+.section01 .main_txt h1 {
+  mix-blend-mode: screen;
+  color: #fff;
 }
 .section01 .bottom_txt {
   position: absolute;
@@ -122,16 +145,23 @@ nav {
   font-size: 1.6rem;
   width: 100vw;
   display: flex;
-  align-items: center;
+  align-items: end;
   justify-content: space-between;
   left: 0;
 }
 .bottom_txt > p {
   padding-left: clamp(3rem, 3.125vw, 6rem);
+  padding-bottom: 0;
 }
-.bottom_txt span {
-  padding-bottom: clamp(3rem, 5.125vw, 10rem);
+.bottom_txt .time_txt {
+  /* padding-bottom: clamp(3rem, 2.125vw, 4.6rem); */
   transform: rotate(-90deg);
+  font-size: 2rem;
+  font-weight: bold;
+  position: absolute;
+  right: 0;
+  bottom: 15rem;
+  font-family: "Courier New", Courier, monospace;
 }
 .section01 .contents {
   position: absolute;
@@ -141,7 +171,7 @@ nav {
 .section01 h1 {
   font-size: clamp(20rem, 15.625vw, 30rem);
   line-height: 1;
-  /* mix-blend-mode: difference; */
+  mix-blend-mode: difference;
 }
 .ImgCont img {
   position: absolute;
@@ -179,13 +209,39 @@ nav {
 
 /* section02 */
 .section02 {
-  background-color: darkgray;
   height: 100vh;
+  /* transition: background-color 0.5s ease; */
+  background: url(./assets/videos/main_video.mp4);
+}
+.norm_mode {
+  background: #b9b9b9;
+  background: url(./assets/videos/main_video.mp4);
+  transition: background-color 0.8s ease;
+}
+.dark_mode {
+  background: #000;
+  transition: background-color 0.8s ease;
 }
 
 .section03 {
-  background-color: black;
+  /* background-color: darkred; */
+  color: #fff;
   height: 100vh;
+  padding: 10rem clamp(3rem, 3.125vw, 6rem);
+}
+.section03 h3 {
+  font-size: 10rem;
+  margin: 5.5rem 0;
+}
+.section03 .color_wrap {
+  display: flex;
+  width: 100%;
+  align-items: end;
+  /* justify-content: space-between; */
+}
+.section03 h5 {
+  width: 10%;
+  font-size: 8rem;
 }
 @media screen and (max-width: 650px) {
   nav {

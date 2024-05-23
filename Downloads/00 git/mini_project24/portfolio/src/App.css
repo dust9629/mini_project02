@@ -2,6 +2,7 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  font-family: "Pretendard", sans-serif;
 }
 html,
 body {
@@ -17,9 +18,9 @@ body {
 .top_btn {
   position: fixed;
   bottom: 4rem;
-  right: clamp(2rem, 3.125vw, 6rem);
+  right: clamp(4.5rem, 4.1667vw, 8rem);
   padding: 1rem;
-  background-color: orangered;
+  background-color: #ff4500;
   cursor: pointer;
   font-size: 1.8rem;
   font-weight: 500;
@@ -42,7 +43,7 @@ nav {
 }
 .nav_wrap {
   width: 100%;
-  height: 60px;
+  height: 6rem;
   /* background-color: lightblue; */
   display: flex;
   align-items: center;
@@ -83,11 +84,11 @@ nav {
 }
 
 .nav_wrap.left {
-  padding-left: clamp(3rem, 3.125vw, 6rem);
+  padding-left: clamp(4.5rem, 4.1667vw, 8rem);
 }
 .nav_wrap.right {
   justify-content: flex-end;
-  padding-right: clamp(3rem, 3.125vw, 6rem);
+  padding-right: clamp(4.5rem, 4.1667vw, 8rem);
 }
 /* .nav_wrap li {          styled-component로 빼둠
   list-style: none;
@@ -102,7 +103,6 @@ nav {
 
 /* 메인 */
 .section01 {
-  background-color: #fff;
   color: #000;
   position: relative;
   height: 100vh;
@@ -117,12 +117,14 @@ nav {
 
 #mainVideo {
   position: absolute;
+  position: fixed;
   width: 100%;
   height: 100%;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   object-fit: cover; /* 비디오가 컨테이너를 꽉 채우도록 */
+  z-index: -1;
 }
 
 .section01 .main_txt {
@@ -150,7 +152,7 @@ nav {
   left: 0;
 }
 .bottom_txt > p {
-  padding-left: clamp(3rem, 3.125vw, 6rem);
+  padding-left: clamp(4.5rem, 4.1667vw, 8rem);
   padding-bottom: 0;
 }
 .bottom_txt .time_txt {
@@ -159,7 +161,7 @@ nav {
   font-size: 2rem;
   font-weight: bold;
   position: absolute;
-  right: 0;
+  right: 3.5rem;
   bottom: 15rem;
   font-family: "Courier New", Courier, monospace;
 }
@@ -209,39 +211,89 @@ nav {
 
 /* section02 */
 .section02 {
+  position: relative;
   height: 100vh;
-  /* transition: background-color 0.5s ease; */
-  background: url(./assets/videos/main_video.mp4);
+  padding: 10rem clamp(4.5rem, 4.1667vw, 8rem);
+  color: #fff;
 }
 .norm_mode {
   background: #b9b9b9;
   background: url(./assets/videos/main_video.mp4);
-  transition: background-color 0.8s ease;
+  transition: background-color 1s ease;
 }
 .dark_mode {
   background: #000;
-  transition: background-color 0.8s ease;
+  /* background: darkred; */
+  transition: background-color 1s ease;
+}
+.section02 h2 {
+  font-size: 10rem;
+  margin: 9.5rem 0 5.5rem 0;
+  color: #fff;
+}
+.section02 ul li {
+  color: #fff;
 }
 
+/* section03 */
 .section03 {
-  /* background-color: darkred; */
+  position: relative;
+  height: 90vh;
+  padding: 10rem clamp(4.5rem, 4.1667vw, 8rem);
   color: #fff;
-  height: 100vh;
-  padding: 10rem clamp(3rem, 3.125vw, 6rem);
 }
-.section03 h3 {
+.section03 .how_to {
+  position: absolute;
+  top: 20rem;
+  right: clamp(4.5rem, 4.1667vw, 8rem);
+  width: 15rem;
+  height: 15rem;
+  border-radius: 50%;
+  background-color: #009ecd;
+  mix-blend-mode: screen;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: spin 3s linear infinite;
+}
+.how_to img {
+  width: 85%;
+  opacity: 0.8;
+}
+.section03 h2 {
   font-size: 10rem;
-  margin: 5.5rem 0;
+  margin: 9.5rem 0 5.5rem 0;
 }
 .section03 .color_wrap {
   display: flex;
   width: 100%;
   align-items: end;
-  /* justify-content: space-between; */
+  margin-top: 9rem;
 }
 .section03 h5 {
-  width: 10%;
+  width: 8%;
   font-size: 8rem;
+  text-align: right;
+}
+/* footer */
+footer {
+  color: #fff;
+  height: 10vh;
+  background: #000;
+  padding: 0 clamp(4.5rem, 4.1667vw, 8rem);
+}
+footer .footer_wrap {
+  border-top: 1px solid #fff;
+  list-style: none;
+  padding-top: 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+}
+footer .footer_wrap h3 {
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
 }
 @media screen and (max-width: 650px) {
   nav {
@@ -252,6 +304,14 @@ nav {
   }
 }
 @keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes spin {
   from {
     transform: rotate(0deg);
   }

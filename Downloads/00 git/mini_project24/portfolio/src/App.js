@@ -9,6 +9,9 @@ import ImageGallery from "./components/ImageGallery";
 import TimeDisplay from "./components/TimeDisplay";
 import ScrollChangeSection from "./components/ScrollChangeSection";
 import ColorPicker from "./components/ColorPicker";
+import CursorFollower from "./components/CursorFollower";
+import TaskContents from "./components/TaskContents";
+import howTxtImage from "./assets/images/how_txt.png";
 import mainVideo from "./assets/videos/main_video.mp4";
 
 function App() {
@@ -25,7 +28,11 @@ function App() {
   `;
 
   let [modal, setModal] = useState(false);
-  let [title, titleList] = useState(["Ecommerce", "Solution", "Build"]);
+  let [title, titleList] = useState([
+    "Personal Projects",
+    "Development",
+    "Maintenance",
+  ]);
   const [sectionBgColor, setSectionBgColor] = useState("#ffffff");
   const [fontColor, setFontColor] = useState("#000000");
 
@@ -38,6 +45,7 @@ function App() {
 
   return (
     <div>
+      <CursorFollower />
       <Router>
         <div className="App">
           <div className="top_btn" onClick={scrollToTop}>
@@ -93,35 +101,23 @@ function App() {
         </div>
       </div>
 
-      {/* section02 */}
+      {/* cont - section02 */}
       <ScrollChangeSection
-        threshold={window.innerHeight / 1.8}
+        threshold={window.innerHeight / 1.9}
         changeBgClass="dark_mode"
       >
         <div className="section02">
           <h2>Contents</h2>
-          <ul>
-            {title.map((a, i) => (
-              <li key={i}>
-                {i + 1}.{a}
-              </li>
-            ))}
-          </ul>
-          <button
-            onClick={() => {
-              let titleChg = [...title];
-              titleChg[0] = "이커머스";
-              titleList(titleChg);
-            }}
-          >
-            click
-          </button>
+          <TaskContents titles={title} />
         </div>
       </ScrollChangeSection>
 
-      {/* section03 */}
+      {/* cont - section03 */}
       <div className="section03" style={{ backgroundColor: sectionBgColor }}>
-        <h3>Color-Hex Code</h3>
+        <div className="how_to">
+          <img src={howTxtImage} alt="How to text description" />
+        </div>
+        <h2>Color-Hex Code</h2>
         <div className="color_wrap">
           <ColorPicker
             onBackgroundColorChange={setSectionBgColor}
@@ -131,8 +127,17 @@ function App() {
         </div>
       </div>
 
+      {/* foot - footer */}
       <footer>
-        <h3>portfolio</h3>
+        <ul className="footer_wrap">
+          <li>
+            <h3>김은지 / dust9629@gmail.com</h3>
+            <p>2021_2024 - ⓒ Lindsey_dust9629</p>
+          </li>
+          <li>
+            <div>깃허브</div>
+          </li>
+        </ul>
       </footer>
     </div>
   );

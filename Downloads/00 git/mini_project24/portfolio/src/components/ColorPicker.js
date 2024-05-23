@@ -5,11 +5,11 @@ function ColorPicker({ onBackgroundColorChange, onFontColorChange }) {
   const [backgroundColor, setBackgroundColor] = useState("#000000");
   const [fontColor, setFontColor] = useState("#ffffff");
   const [backgroundHue, setBackgroundHue] = useState(1);
-  const [backgroundSaturation, setBackgroundSaturation] = useState(1);
-  const [backgroundLightness, setBackgroundLightness] = useState(0.71);
-  const [fontHue, setFontHue] = useState(175);
+  const [backgroundSaturation, setBackgroundSaturation] = useState(0);
+  const [backgroundLightness, setBackgroundLightness] = useState(0);
+  const [fontHue, setFontHue] = useState(360);
   const [fontSaturation, setFontSaturation] = useState(1);
-  const [fontLightness, setFontLightness] = useState(0.71);
+  const [fontLightness, setFontLightness] = useState(1);
 
   useEffect(() => {
     const bgHex = hslToHex(
@@ -131,7 +131,7 @@ function ColorPicker({ onBackgroundColorChange, onFontColorChange }) {
           </li>
         </ul>
       </div>
-      <div className="fontcolor">
+      <div className="font_color">
         <h6>Font Color</h6>
         <input
           type="text"

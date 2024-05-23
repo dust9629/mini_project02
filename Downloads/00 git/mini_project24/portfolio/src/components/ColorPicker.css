@@ -1,24 +1,88 @@
 .color-picker {
-  width: 90%;
+  width: 92%;
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
 }
 .background,
-.fontcolor {
+.font_color {
   flex: 1;
-  margin: 0 10px;
 }
 .background h6,
-.fontcolor h6 {
-  margin-bottom: 10px;
+.font_color h6 {
+  margin-bottom: 5rem;
+  font-size: 6rem;
+  font-weight: 500;
+}
+.background input,
+.font_color input {
+  width: 90%;
+}
+.background input[type="text"],
+.font_color input[type="text"] {
+  height: 6rem;
+  font-size: 5rem;
+  border: none;
+  border-bottom: 1px solid #fbfbfb;
+  color: #fbfbfb;
+  background-color: transparent;
+  margin-bottom: 3rem;
+}
+.background input[type="range"],
+.font_color input[type="range"] {
+  margin: 1rem 0 3rem 0;
+}
+.background li:nth-child(3) input[type="range"],
+.font_color li:nth-child(3) input[type="range"] {
+  margin: 1rem 0 0 0;
+}
+.background p,
+.font_color p {
+  font-size: 1.8rem;
+  font-weight: 500;
 }
 .background ul,
-.fontcolor ul {
+.font_color ul {
   list-style: none;
   padding: 0;
 }
-.background ul li,
-.fontcolor ul li {
-  margin-bottom: 10px;
+
+/* range custom */
+input[type="range"] {
+  -webkit-appearance: none; /* 크롬, 사파리 등의 기본 디자인 제거 */
+  background: transparent; /* 트랙 배경 투명 */
+}
+
+/* Chrome, Safari 등 */
+input[type="range"]::-webkit-slider-runnable-track {
+  /* width: 100%; */
+  height: 0.8rem;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  border: none;
+  height: 1.6rem;
+  width: 1.6rem;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.8);
+  margin-top: -4px;
+}
+
+/* Firefox */
+input[type="range"]::-moz-range-track {
+  /* width: 100%; */
+  height: 0.8rem;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+}
+
+input[type="range"]::-moz-range-thumb {
+  border: none;
+  height: 1.6rem;
+  width: 1.6rem;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.8);
 }

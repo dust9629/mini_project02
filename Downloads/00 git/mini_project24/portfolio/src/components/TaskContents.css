@@ -1,3 +1,19 @@
+/* .section02::after {
+  content: "test test test";
+  position: absolute;
+  top: 40%;
+  left: 0;
+  font-size: 30rem;
+  z-index: 2;
+} */
+/* .section02::before {
+  content: "test test test";
+  position: absolute;
+  bottom: 5%;
+  left: 0;
+  font-size: 30rem;
+  z-index: 2;
+} */
 .task_wrap {
   list-style: none;
   padding: 0;
@@ -7,38 +23,187 @@
   justify-items: center;
   position: relative;
   top: 20%;
+  z-index: 5;
 }
+/* .task_wrap::after {
+  content: "";
+  position: absolute;
+  top: -10rem;
+  left: -6rem;
+  width: 150%;
+  height: 60vh;
+  z-index: 4;
+} */
 
 .task_wrap > li {
-  width: 30rem;
-  height: 30rem;
+  width: 25rem;
+  height: 25rem;
   /* padding: 10px; */
   /* margin-bottom: 5px; */
-  background-color: rgba(255, 255, 255, 0.5);
-  border-radius: 50%;
   position: relative;
 }
 .task_wrap .task_in {
+  width: 100%;
+  height: 100%;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 3rem;
-  text-align: center;
+  font-size: 2.6rem;
   line-height: 4.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  white-space: pre-wrap;
+  background-color: rgba(255, 255, 255, 0.5);
+  /* background: #000; */
+  border-radius: 50%;
 }
+/* .task_wrap > li::after {
+  content: "";
+  background: url("../assets/images/shadow.webp") center/cover;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  animation: spin 3s linear infinite;
+} */
 .task_wrap .task_out {
   /* display: none; */
-  width: 50rem;
-  height: 50rem;
+  width: 45rem;
+  height: 45rem;
   border: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: 50%;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  transition: 0.3s ease-in-out;
 }
-/* 
-.task_wrap li .task_in:hover .task_out {
-  display: block;
-} */
+
+.task_wrap .task_cont {
+  list-style: none;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: rotate(0deg) scale(0.5);
+  transition: 0.3s ease-in-out;
+}
+.task_cont li {
+  width: 5rem;
+  height: 5rem;
+  font-size: 1.5rem;
+  /* border: 2px solid #fff; */
+  background-color: #ff4500;
+  background-color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(0deg);
+}
+.task_out {
+  visibility: hidden;
+  opacity: 0;
+}
+.task_item:hover .task_out {
+  visibility: visible;
+  opacity: 1;
+}
+.task_item:hover .task_cont {
+  transform: rotate(-90deg) scale(1);
+}
+.task_item:hover .task_cont > li {
+  transform: rotate(90deg);
+}
+.task_cont > li:hover {
+  background: grey;
+}
+.task_cont a {
+  font-size: 2rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+/* task_title */
+a::after {
+  position: absolute;
+  top: 0;
+  left: 6rem;
+  font-size: 1.8rem;
+  color: #fff;
+  white-space: nowrap;
+  /* padding: 1rem 0; */
+}
+/* personal project */
+.task_item:first-of-type li:first-child a::after {
+  content: "this Page";
+  top: -1rem;
+}
+.task_item:first-of-type li:nth-child(2) a::after {
+  content: "Bredit ( Elice track )";
+  top: 1rem;
+}
+.task_item:first-of-type li:nth-child(3) a::after {
+  content: "CarryAll ( Elice track )";
+  top: 1rem;
+}
+.task_item:first-of-type li:nth-child(4) a::after {
+  content: "2021 Portfolio";
+  white-space: pre-wrap;
+}
+/* development */
+.task_item:nth-of-type(2) li:nth-child(1) a::after {
+  content: "금융결제원";
+  top: -1rem;
+}
+.task_item:nth-of-type(2) li:nth-child(2) a::after {
+  content: "씰리코리아";
+  top: 1rem;
+}
+.task_item:nth-of-type(2) li:nth-child(3) a::after {
+  content: "LG 더 후";
+  top: 1rem;
+}
+.task_item:nth-of-type(2) li:nth-child(4) a::after {
+  content: "메이크샵";
+  top: 1rem;
+  /* white-space: pre-wrap; */
+}
+/* maintenance */
+.task_item:nth-of-type(3) li:nth-child(1) a::after {
+  content: "금융결제원";
+  top: -1rem;
+}
+.task_item:nth-of-type(3) li:nth-child(2) a::after {
+  content: "나오스코리아";
+  top: 1rem;
+}
+.task_item:nth-of-type(3) li:nth-child(3) a::after {
+  content: "LG 헬로비전";
+  top: 1rem;
+}
+.task_item:nth-of-type(3) li:nth-child(4) a::after {
+  content: "피티그래피";
+  top: 1rem;
+}
+.task_item:nth-of-type(3) li:nth-child(5) a::after {
+  content: "동양";
+  left: 6.5rem;
+  top: 1rem;
+}
+.task_item:nth-of-type(3) li:nth-child(6) a::after {
+  content: "구르메";
+  left: 6.5rem;
+  top: 2rem;
+}
+.task_item:nth-of-type(3) li:nth-child(7) a::after {
+  content: "뉴트리몰";
+  top: 4rem;
+}

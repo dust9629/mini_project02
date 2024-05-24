@@ -9,33 +9,49 @@ function ImageGallery() {
     "main_effect05.png",
     "main_effect06.png",
   ];
+
   const [loadedImages, setLoadedImages] = useState([]);
+  const [loadingIndex, setLoadingIndex] = useState(0); // 현재 로딩 중인 이미지 인덱스
 
+  // 이미지를 순차적으로 로드하는 useEffect
   useEffect(() => {
-    imageNames.forEach((name, index) => {
-      // 랜덤 지연 시간 설정
-      const baseDelay = 100; // 기본 .1초
-      const randomFactor = Math.random() * 100; // 0초에서 0.6초 사이의 랜덤 값
-      const delay = baseDelay + index * 1000 + randomFactor;
-
+    if (
+      loadedImages.length < imageNames.length &&
+      loadingIndex < imageNames.length
+    ) {
+      const delay = 300 * loadingIndex; // 이미지 로딩 간격을 300ms로 단축
       setTimeout(() => {
-        import(`../assets/images/${name}`)
+        import(`../assets/images/${imageNames[loadingIndex]}`)
           .then((image) => {
-            setLoadedImages((prevImages) => {
-              // 이미 로드된 이미지를 다시 로드하지 않도록 체크
-              if (!prevImages.find((img) => img === image.default)) {
-                return [...prevImages, image.default];
-              }
-              return prevImages;
-            });
+            setLoadedImages((prevImages) => [...prevImages, image.default]);
+            setLoadingIndex((prevIndex) => prevIndex + 1);
           })
           .catch((error) => console.error("Failed to load images", error));
       }, delay);
-    });
-  }); // 의존성 배열을 비워 컴포넌트 마운트 시 한 번만 실행되도록 함
+    }
+  }, [loadingIndex, loadedImages.length]);
+
+  // 모든 이미지가 로드된 후에 이미지를 순차적으로 비우는 useEffect
+  useEffect(() => {
+    if (loadedImages.length === imageNames.length) {
+      let clearIndex = 0;
+      const clearDelay = 300; // 이미지를 비우는 간격을 300ms로 단축
+      const clearTimer = setInterval(() => {
+        if (clearIndex < loadedImages.length) {
+          setLoadedImages((prevImages) =>
+            prevImages.slice(0, prevImages.length - 1)
+          );
+          clearIndex++;
+        } else {
+          clearInterval(clearTimer);
+          setLoadingIndex(0); // 로딩 인덱스를 초기화하여 다시 로드 시작
+        }
+      }, clearDelay);
+    }
+  }, [loadedImages.length]);
 
   return (
-    <div>
+    <div className="ImgCont">
       {loadedImages.map((src, index) => (
         <img src={src} alt={`Effect ${index + 1}`} key={index} />
       ))}

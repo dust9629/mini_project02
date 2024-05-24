@@ -84,16 +84,17 @@ function ColorPicker({ onBackgroundColorChange, onFontColorChange }) {
   return (
     <div className="color-picker">
       <div className="background">
-        <h6>Background Color</h6>
+        <h6 style={{ color: fontColor }}>Background Color</h6>
         <input
+          style={{ color: fontColor }}
           type="text"
           value={backgroundColor}
           onChange={(e) => setBackgroundColor(e.target.value)}
         />
         <ul>
           <li>
-            <p>
-              Hue<span>{backgroundHue}°</span>
+            <p style={{ color: fontColor }}>
+              Hue<span style={{ color: fontColor }}>{backgroundHue}°</span>
             </p>
             <input
               type="range"
@@ -104,8 +105,9 @@ function ColorPicker({ onBackgroundColorChange, onFontColorChange }) {
             />
           </li>
           <li>
-            <p>
-              Saturation<span>{backgroundSaturation}</span>
+            <p style={{ color: fontColor }}>
+              Saturation
+              <span style={{ color: fontColor }}>{backgroundSaturation}</span>
             </p>
             <input
               type="range"
@@ -117,8 +119,9 @@ function ColorPicker({ onBackgroundColorChange, onFontColorChange }) {
             />
           </li>
           <li>
-            <p>
-              Lightness<span>{backgroundLightness}</span>
+            <p style={{ color: fontColor }}>
+              Lightness
+              <span style={{ color: fontColor }}>{backgroundLightness}</span>
             </p>
             <input
               type="range"
@@ -132,16 +135,17 @@ function ColorPicker({ onBackgroundColorChange, onFontColorChange }) {
         </ul>
       </div>
       <div className="font_color">
-        <h6>Font Color</h6>
+        <h6 style={{ color: fontColor }}>Font Color</h6>
         <input
+          style={{ color: fontColor }}
           type="text"
           value={fontColor}
           onChange={(e) => setFontColor(e.target.value)}
         />
         <ul>
           <li>
-            <p>
-              Hue<span>{fontHue}°</span>
+            <p style={{ color: fontColor }}>
+              Hue<span style={{ color: fontColor }}>{fontHue}°</span>
             </p>
             <input
               type="range"
@@ -152,8 +156,9 @@ function ColorPicker({ onBackgroundColorChange, onFontColorChange }) {
             />
           </li>
           <li>
-            <p>
-              Saturation<span>{fontSaturation}</span>
+            <p style={{ color: fontColor }}>
+              Saturation
+              <span style={{ color: fontColor }}>{fontSaturation}</span>
             </p>
             <input
               type="range"
@@ -165,8 +170,8 @@ function ColorPicker({ onBackgroundColorChange, onFontColorChange }) {
             />
           </li>
           <li>
-            <p>
-              Lightness<span>{fontLightness}</span>
+            <p style={{ color: fontColor }}>
+              Lightness<span style={{ color: fontColor }}>{fontLightness}</span>
             </p>
             <input
               type="range"

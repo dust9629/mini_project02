@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 import styled from "styled-components";
 import "./App.css";
@@ -12,6 +12,9 @@ import ColorPicker from "./components/ColorPicker";
 import CursorFollower from "./components/CursorFollower";
 import TaskContents from "./components/TaskContents";
 import howTxtImage from "./assets/images/how_txt.png";
+import IconGithub from "./assets/images/icon_github.png";
+import IconNotion from "./assets/images/icon_notion.png";
+import IconVelog from "./assets/images/icon_velog.png";
 import mainVideo from "./assets/videos/main_video.mp4";
 
 function App() {
@@ -25,9 +28,42 @@ function App() {
     border-radius: 2.5rem;
     text-decoration: none;
     color: #000;
+    transition: 0.5s ease;
   `;
 
   let [modal, setModal] = useState(false);
+  const navRef = useRef(null);
+  const section01Ref = useRef(null);
+  const footerRef = useRef(null); // footer에 대한 ref 추가
+  const [showTopButton, setShowTopButton] = useState(true);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const sectionEnd =
+        section01Ref.current.clientHeight + section01Ref.current.offsetTop;
+      const footerTop = footerRef.current.offsetTop; // footer의 상단 위치
+      const scrollPosition = window.pageYOffset;
+      if (navRef.current) {
+        if (scrollPosition >= sectionEnd) {
+          navRef.current.classList.add("white_mode");
+        } else {
+          navRef.current.classList.remove("white_mode");
+        }
+      }
+
+      // top button 표시 로직
+      if (scrollPosition + window.innerHeight >= footerTop) {
+        setShowTopButton(false); // footer에 진입하면 숨김
+      } else {
+        setShowTopButton(true); // footer 위에 있으면 표시
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
   let [title, titleList] = useState([
     "Personal Projects",
     "Development",
@@ -48,10 +84,12 @@ function App() {
       <CursorFollower />
       <Router>
         <div className="App">
-          <div className="top_btn" onClick={scrollToTop}>
-            Back To Top
-          </div>
-          <nav>
+          {showTopButton && (
+            <div className="top_btn" onClick={scrollToTop}>
+              Back To Top
+            </div>
+          )}
+          <nav ref={navRef}>
             <ul className="nav_wrap left">
               <li>
                 <StyledLink to="/contact">Contact</StyledLink>
@@ -81,7 +119,7 @@ function App() {
       </Router>
 
       {/* main - section01 */}
-      <div className="section01">
+      <div ref={section01Ref} className="section01">
         <div className="main_bg">
           <video autoPlay muted loop id="mainVideo">
             <source src={mainVideo} type="video/mp4" />
@@ -103,7 +141,7 @@ function App() {
 
       {/* cont - section02 */}
       <ScrollChangeSection
-        threshold={window.innerHeight / 1.9}
+        threshold={window.innerHeight / 1.2}
         changeBgClass="dark_mode"
       >
         <div className="section02">
@@ -117,7 +155,7 @@ function App() {
         <div className="how_to">
           <img src={howTxtImage} alt="How to text description" />
         </div>
-        <h2>Color-Hex Code</h2>
+        <h2 style={{ color: fontColor }}>Color-Hex Code</h2>
         <div className="color_wrap">
           <ColorPicker
             onBackgroundColorChange={setSectionBgColor}
@@ -128,14 +166,25 @@ function App() {
       </div>
 
       {/* foot - footer */}
-      <footer>
+      <footer ref={footerRef}>
         <ul className="footer_wrap">
           <li>
             <h3>김은지 / dust9629@gmail.com</h3>
             <p>2021_2024 - ⓒ Lindsey_dust9629</p>
           </li>
-          <li>
-            <div>깃허브</div>
+          <li className="icon_wrap">
+            <a
+              target="_blank"
+              href="https://treasure-wolverine-e71.notion.site/d6fb630e6b9d4158b2c6436af844c3dc?pvs=4"
+            >
+              <img src={IconNotion} alt="Notion" />
+            </a>
+            <a target="_blank" href="https://github.com/dust9629">
+              <img src={IconGithub} alt="Github" />
+            </a>
+            <a target="_blank" href="https://velog.io/@dust9629/posts">
+              <img src={IconVelog} alt="Velog" />
+            </a>
           </li>
         </ul>
       </footer>

@@ -18,6 +18,29 @@ import IconVelog from "./assets/images/icon_velog.png";
 import mainVideo from "./assets/videos/main_video.mp4";
 
 function App() {
+  const urlLinks = {
+    "Personal Projects": [
+      "#",
+      "https://frontend-nine-tau-41.vercel.app/",
+      "#",
+      "https://lindsey-kim.github.io/index.html",
+    ],
+    Development: [
+      "https://www.cmsedi.or.kr/cms",
+      "https://sealystore.co.kr/",
+      "https://thewhoo.com/royalartgift",
+      "https://www.makeshop.co.kr/",
+    ],
+    Maintenance: [
+      "https://www.naosmall.kr/",
+      "https://maintlink2.com",
+      "http://ptgraphy.co.kr/",
+      "https://tongyanginc.co.kr/",
+      "https://gourmet.co.kr/",
+      "https://newtreemall.co.kr/",
+    ],
+  };
+
   const StyledLink = styled(Link)`
     font-size: 2rem;
     font-weight: 500;
@@ -31,7 +54,10 @@ function App() {
     transition: 0.5s ease;
   `;
 
-  let [modal, setModal] = useState(false);
+  const [modal, setModal] = useState(false);
+  const showModal = () => setModal(true);
+  const hideModal = () => setModal(false);
+
   const navRef = useRef(null);
   const section01Ref = useRef(null);
   const footerRef = useRef(null); // footer에 대한 ref 추가
@@ -41,7 +67,7 @@ function App() {
     const handleScroll = () => {
       const sectionEnd =
         section01Ref.current.clientHeight + section01Ref.current.offsetTop;
-      const footerTop = footerRef.current.offsetTop; // footer의 상단 위치
+      const footerTop = footerRef.current.offsetTop;
       const scrollPosition = window.pageYOffset;
       if (navRef.current) {
         if (scrollPosition >= sectionEnd) {
@@ -51,11 +77,11 @@ function App() {
         }
       }
 
-      // top button 표시 로직
+      // top button 하단 숨김처리
       if (scrollPosition + window.innerHeight >= footerTop) {
-        setShowTopButton(false); // footer에 진입하면 숨김
+        setShowTopButton(false);
       } else {
-        setShowTopButton(true); // footer 위에 있으면 표시
+        setShowTopButton(true);
       }
     };
 
@@ -79,6 +105,19 @@ function App() {
     });
   };
 
+  const addClass = (className) => {
+    const darkModeElement = document.querySelector(".dark_mode");
+    if (darkModeElement && !darkModeElement.classList.contains(className)) {
+      darkModeElement.classList.add(className);
+    }
+  };
+
+  const removeClass = (className) => {
+    const darkModeElement = document.querySelector(".dark_mode");
+    if (darkModeElement) {
+      darkModeElement.classList.remove(className);
+    }
+  };
   return (
     <div>
       <CursorFollower />
@@ -146,13 +185,18 @@ function App() {
       >
         <div className="section02">
           <h2>Contents</h2>
-          <TaskContents titles={title} />
+          <TaskContents
+            titles={title}
+            addClass={addClass}
+            removeClass={removeClass}
+            urlLinks={urlLinks}
+          />
         </div>
       </ScrollChangeSection>
 
       {/* cont - section03 */}
       <div className="section03" style={{ backgroundColor: sectionBgColor }}>
-        <div className="how_to">
+        <div className="how_to modal" onClick={showModal}>
           <img src={howTxtImage} alt="How to text description" />
         </div>
         <h2 style={{ color: fontColor }}>Color-Hex Code</h2>
@@ -198,6 +242,26 @@ function App() {
         <li>Team_project</li>
         <li>A-Z</li>
       </ul>
+    );
+  }
+
+  function Modal() {
+    return (
+      <div className="Modal_wrap" style={{ display: modal ? "block" : "none" }}>
+        <h3 className="modal_tit">How to.</h3>
+        <p className="sub_tit">How to create this page.</p>
+        <div className="modal_conts">
+          <ul>
+            <li>HTML</li>
+            <li>CSS</li>
+            <li>React / JS</li>
+            <li>Styled-component</li>
+          </ul>
+        </div>
+        <p className="close_btn" onClick={hideModal}>
+          X
+        </p>
+      </div>
     );
   }
 }

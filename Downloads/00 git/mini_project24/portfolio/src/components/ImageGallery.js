@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 
 function ImageGallery() {
   const imageNames = [
+    "main_effect00.png",
     "main_effect01.png",
     "main_effect02.png",
     "main_effect03.png",
     "main_effect04.png",
     "main_effect05.png",
-    "main_effect06.png",
   ];
 
   const [loadedImages, setLoadedImages] = useState([]);
@@ -19,7 +19,8 @@ function ImageGallery() {
       loadedImages.length < imageNames.length &&
       loadingIndex < imageNames.length
     ) {
-      const delay = 300 * loadingIndex; // 이미지 로딩 간격을 300ms로 단축
+      // 로드 간격 감소 (이미지마다 지연 시간을 200ms로 설정)
+      const initialDelay = 100 * loadingIndex;
       setTimeout(() => {
         import(`../assets/images/${imageNames[loadingIndex]}`)
           .then((image) => {
@@ -27,7 +28,7 @@ function ImageGallery() {
             setLoadingIndex((prevIndex) => prevIndex + 1);
           })
           .catch((error) => console.error("Failed to load images", error));
-      }, delay);
+      }, initialDelay);
     }
   }, [loadingIndex, loadedImages.length]);
 
@@ -35,7 +36,8 @@ function ImageGallery() {
   useEffect(() => {
     if (loadedImages.length === imageNames.length) {
       let clearIndex = 0;
-      const clearDelay = 300; // 이미지를 비우는 간격을 300ms로 단축
+
+      const clearDelay = 100;
       const clearTimer = setInterval(() => {
         if (clearIndex < loadedImages.length) {
           setLoadedImages((prevImages) =>
@@ -44,16 +46,16 @@ function ImageGallery() {
           clearIndex++;
         } else {
           clearInterval(clearTimer);
-          setLoadingIndex(0); // 로딩 인덱스를 초기화하여 다시 로드 시작
+          setLoadingIndex(0);
         }
-      }, clearDelay);
+      }, clearDelay - 100 * clearIndex);
     }
   }, [loadedImages.length]);
 
   return (
     <div className="ImgCont">
       {loadedImages.map((src, index) => (
-        <img src={src} alt={`Effect ${index + 1}`} key={index} />
+        <img src={src} alt={`Effect ${index}`} key={index} />
       ))}
     </div>
   );

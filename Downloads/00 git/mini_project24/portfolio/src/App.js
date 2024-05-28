@@ -1,10 +1,10 @@
-import React, { useState, useRef, useEffect } from "react";
-import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
+import React, { useState, useRef, useEffect, useCallback } from "react";
+import { BrowserRouter as Router } from "react-router-dom";
 import styled from "styled-components";
 import "./App.css";
 import TeamProject from "./components/TeamProject";
-import Contact from "./components/Contact";
-import AtoZ from "./components/AtoZ";
+// import Contact from "./components/Contact";
+// import AtoZ from "./components/AtoZ";
 import ImageGallery from "./components/ImageGallery";
 import TimeDisplay from "./components/TimeDisplay";
 import ScrollChangeSection from "./components/ScrollChangeSection";
@@ -12,6 +12,7 @@ import ColorPicker from "./components/ColorPicker";
 import CursorFollower from "./components/CursorFollower";
 import TaskContents from "./components/TaskContents";
 import howTxtImage from "./assets/images/how_txt.png";
+import Close from "./assets/images/icon_close.png";
 import IconGithub from "./assets/images/icon_github.png";
 import IconNotion from "./assets/images/icon_notion.png";
 import IconVelog from "./assets/images/icon_velog.png";
@@ -40,8 +41,7 @@ function App() {
       "https://newtreemall.co.kr/",
     ],
   };
-
-  const StyledLink = styled(Link)`
+  const StyledLink = styled.a`
     font-size: 2rem;
     font-weight: 500;
     list-style: none;
@@ -51,7 +51,7 @@ function App() {
     border-radius: 2.5rem;
     text-decoration: none;
     color: #000;
-    transition: 0.5s ease;
+    transition: all 0.3s ease;
   `;
 
   const [modal, setModal] = useState(false);
@@ -60,28 +60,74 @@ function App() {
 
   const navRef = useRef(null);
   const section01Ref = useRef(null);
-  const footerRef = useRef(null); // footer에 대한 ref 추가
+  const footerRef = useRef(null);
+
   const [showTopButton, setShowTopButton] = useState(true);
+  const sectionRefs = [useRef(null), useRef(null), useRef(null)];
+  const [currentSection, setCurrentSection] = useState(0);
+
+  const [wheelActive, setWheelActive] = useState(true);
+
+  const handleWheel = useCallback(
+    (e) => {
+      if (!wheelActive) return;
+      e.preventDefault(); // Prevent the default scroll behavior
+      const { deltaY } = e;
+      if (deltaY > 0 && currentSection < sectionRefs.length - 1) {
+        setCurrentSection((prevSection) => {
+          const newSection = prevSection + 1;
+          updateTopButton(newSection);
+          return newSection;
+        });
+      } else if (deltaY < 0 && currentSection > 0) {
+        setCurrentSection((prevSection) => {
+          const newSection = prevSection - 1;
+          updateTopButton(newSection);
+          return newSection;
+        });
+      }
+    },
+    [currentSection, wheelActive]
+  );
+  const handleNavScrollChange = (isDark) => {
+    const navElement = navRef.current;
+    if (navElement) {
+      if (isDark) {
+        navElement.classList.add("dark_nav");
+      } else {
+        navElement.classList.remove("dark_nav");
+      }
+    }
+  };
+  useEffect(() => {
+    const section = sectionRefs[currentSection]?.current;
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [currentSection]);
+
+  useEffect(() => {
+    window.addEventListener("wheel", handleWheel, { passive: false });
+    return () => {
+      window.removeEventListener("wheel", handleWheel);
+    };
+  }, [handleWheel]);
 
   useEffect(() => {
     const handleScroll = () => {
-      const sectionEnd =
-        section01Ref.current.clientHeight + section01Ref.current.offsetTop;
-      const footerTop = footerRef.current.offsetTop;
-      const scrollPosition = window.pageYOffset;
-      if (navRef.current) {
-        if (scrollPosition >= sectionEnd) {
-          navRef.current.classList.add("white_mode");
-        } else {
-          navRef.current.classList.remove("white_mode");
-        }
-      }
+      // section01Ref.current가 존재하는지 확인
+      if (section01Ref.current) {
+        const sectionEnd =
+          section01Ref.current.clientHeight + section01Ref.current.offsetTop;
+        const scrollPosition = window.pageYOffset;
 
-      // top button 하단 숨김처리
-      if (scrollPosition + window.innerHeight >= footerTop) {
-        setShowTopButton(false);
-      } else {
-        setShowTopButton(true);
+        if (navRef.current) {
+          if (scrollPosition >= sectionEnd) {
+            navRef.current.classList.add("white_mode");
+          } else {
+            navRef.current.classList.remove("white_mode");
+          }
+        }
       }
     };
 
@@ -90,18 +136,38 @@ function App() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
-  let [title, titleList] = useState([
-    "Personal Projects",
-    "Development",
-    "Maintenance",
-  ]);
+
+  let [title] = useState(["Personal Projects", "Development", "Maintenance"]);
   const [sectionBgColor, setSectionBgColor] = useState("#ffffff");
   const [fontColor, setFontColor] = useState("#000000");
 
+  const updateTopButton = (sectionIndex) => {
+    const topBtnElement = document.querySelector(".top_btn");
+    if (sectionIndex === 2) {
+      topBtnElement.classList.add("move");
+    } else {
+      topBtnElement.classList.remove("move");
+    }
+  };
+
   const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
+    setWheelActive(false);
+
+    new Promise((resolve) => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+      window.addEventListener("scroll", function onScroll() {
+        if (window.pageYOffset === 0) {
+          window.removeEventListener("scroll", onScroll);
+          resolve();
+        }
+      });
+    }).then(() => {
+      setCurrentSection(0); // 스크롤이 끝난 후 섹션을 0으로 설정
+      updateTopButton(0); // top 버튼 업데이트
+      setWheelActive(true); // 스크롤 이벤트를 다시 활성화
     });
   };
 
@@ -121,6 +187,7 @@ function App() {
   return (
     <div>
       <CursorFollower />
+      <Modal />
       <Router>
         <div className="App">
           {showTopButton && (
@@ -131,34 +198,39 @@ function App() {
           <nav ref={navRef}>
             <ul className="nav_wrap left">
               <li>
-                <StyledLink to="/contact">Contact</StyledLink>
+                <StyledLink
+                  href="https://www.notion.so/d6fb630e6b9d4158b2c6436af844c3dc"
+                  target="_blank"
+                >
+                  Contact
+                </StyledLink>
               </li>
             </ul>
             <ul className="nav_wrap right">
               <li>
-                <StyledLink to="/team-project">Team_project</StyledLink>
+                <StyledLink onClick={showModal} className="modal">
+                  TeamProject
+                </StyledLink>
               </li>
               <li>
-                <StyledLink to="/a-z">A-Z</StyledLink>
+                <StyledLink
+                  href="https://treasure-wolverine-e71.notion.site/1-fc9676cdd64449ecbafa9e5536053ac9?pvs=4"
+                  target="_blank"
+                >
+                  A-Z
+                </StyledLink>
               </li>
             </ul>
           </nav>
 
-          <Routes>
-            <Route path="/team-project" element={<TeamProject />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/a-z" element={<AtoZ />} />
-          </Routes>
-
           <div className="mo_nav_wrap">
-            <p onClick={() => setModal(true)}>menu</p>
-            {modal ? <NavMobile /> : null}
+            <p onClick={showModal}>menu</p>
           </div>
         </div>
       </Router>
 
       {/* main - section01 */}
-      <div ref={section01Ref} className="section01">
+      <div ref={sectionRefs[0]} className="section01">
         <div className="main_bg">
           <video autoPlay muted loop id="mainVideo">
             <source src={mainVideo} type="video/mp4" />
@@ -178,12 +250,25 @@ function App() {
         </div>
       </div>
 
+      {/* Modal */}
+      {modal && (
+        <div className="Modal_wrap" style={{ display: "block" }}>
+          <div className="modal_conts">
+            <TeamProject />
+          </div>
+          <p className="close_btn" onClick={hideModal}>
+            <img src={Close} alt="close" />
+          </p>
+        </div>
+      )}
+
       {/* cont - section02 */}
       <ScrollChangeSection
         threshold={window.innerHeight / 1.2}
         changeBgClass="dark_mode"
+        onScrollChange={handleNavScrollChange}
       >
-        <div className="section02">
+        <div ref={sectionRefs[1]} className="section02">
           <h2>Contents</h2>
           <TaskContents
             titles={title}
@@ -195,7 +280,11 @@ function App() {
       </ScrollChangeSection>
 
       {/* cont - section03 */}
-      <div className="section03" style={{ backgroundColor: sectionBgColor }}>
+      <div
+        ref={sectionRefs[2]}
+        className="section03"
+        style={{ backgroundColor: sectionBgColor }}
+      >
         <div className="how_to modal" onClick={showModal}>
           <img src={howTxtImage} alt="How to text description" />
         </div>
@@ -220,13 +309,22 @@ function App() {
             <a
               target="_blank"
               href="https://treasure-wolverine-e71.notion.site/d6fb630e6b9d4158b2c6436af844c3dc?pvs=4"
+              rel="noopener noreferrer"
             >
               <img src={IconNotion} alt="Notion" />
             </a>
-            <a target="_blank" href="https://github.com/dust9629">
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://github.com/dust9629"
+            >
               <img src={IconGithub} alt="Github" />
             </a>
-            <a target="_blank" href="https://velog.io/@dust9629/posts">
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://velog.io/@dust9629/posts"
+            >
               <img src={IconVelog} alt="Velog" />
             </a>
           </li>
@@ -235,15 +333,15 @@ function App() {
     </div>
   );
 
-  function NavMobile() {
-    return (
-      <ul className="mo_nav">
-        <li>Contact</li>
-        <li>Team_project</li>
-        <li>A-Z</li>
-      </ul>
-    );
-  }
+  // function NavMobile() {
+  //   return (
+  //     <ul className="mo_nav">
+  //       <li>Contact</li>
+  //       <li>Team_project</li>
+  //       <li>A-Z</li>
+  //     </ul>
+  //   );
+  // }
 
   function Modal() {
     return (
@@ -259,7 +357,7 @@ function App() {
           </ul>
         </div>
         <p className="close_btn" onClick={hideModal}>
-          X
+          {/* <img src={Close} alt="close" /> */}
         </p>
       </div>
     );

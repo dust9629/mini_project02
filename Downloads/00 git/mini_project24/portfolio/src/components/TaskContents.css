@@ -1,19 +1,3 @@
-/* .section02::after {
-  content: "test test test";
-  position: absolute;
-  top: 40%;
-  left: 0;
-  font-size: 30rem;
-  z-index: 2;
-} */
-/* .section02::before {
-  content: "test test test";
-  position: absolute;
-  bottom: 5%;
-  left: 0;
-  font-size: 30rem;
-  z-index: 2;
-} */
 .task_wrap {
   list-style: none;
   padding: 0;
@@ -21,29 +5,16 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   justify-items: center;
+  align-items: center;
   position: relative;
-  top: 20%;
+  top: 10%;
   z-index: 5;
 }
-/* .task_wrap::after {
-  content: "";
-  position: absolute;
-  top: -10rem;
-  left: -6rem;
-  width: 150%;
-  height: 60vh;
-  z-index: 4;
-} */
-
 .task_wrap > li {
   width: 45rem;
   height: 45rem;
   position: relative;
-  transition: 0.3s ease-in-out;
-}
-.task_wrap > li:hover {
-  width: 25rem;
-  height: 25rem;
+  transition: all 0.3s ease;
 }
 .task_wrap .task_in {
   width: 100%;
@@ -55,26 +26,26 @@
   font-size: 2.6rem;
   line-height: 4.2rem;
   display: flex;
-  align-items: center;
+  align-items: end;
   justify-content: center;
   text-align: center;
-  white-space: pre-wrap;
-  background-color: rgba(255, 255, 255, 0.5);
-  /* background: #000; */
+  /* color: transparent; */
   border-radius: 50%;
 }
-/* .task_wrap > li::after {
-  content: "";
-  background: url("../assets/images/shadow.webp") center/cover;
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  left: 0;
-  top: 0;
-  animation: spin 3s linear infinite;
-} */
+.task_item:nth-child(1) > .task_in {
+  background: url(../assets/images/cont_bg01.png) center/cover;
+  transition: all 0.3s ease;
+}
+.task_item:nth-child(2) > .task_in {
+  background: url(../assets/images/cont_bg02.png) center/cover;
+  transition: all 0.3s ease;
+}
+.task_item:nth-child(3) > .task_in {
+  background: url(../assets/images/cont_bg03.png) center/cover;
+  transition: all 0.3s ease;
+}
+
 .task_wrap .task_out {
-  /* display: none; */
   width: 45rem;
   height: 45rem;
   border: 1px solid rgba(255, 255, 255, 0.5);
@@ -83,9 +54,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  transition: 0.3s ease-in-out;
+  transition: all 0.3s ease;
 }
-
 .task_wrap .task_cont {
   list-style: none;
   position: absolute;
@@ -97,14 +67,12 @@
   justify-content: center;
   align-items: center;
   transform: rotate(0deg) scale(0.5);
-  transition: 0.3s ease-in-out;
+  transition: all 0.3s ease;
 }
 .task_cont li {
   width: 5rem;
   height: 5rem;
   font-size: 1.5rem;
-  /* border: 2px solid #fff; */
-  background-color: #ff4500;
   background-color: #fff;
   border-radius: 50%;
   display: flex;
@@ -119,6 +87,7 @@
 .task_item:hover .task_out {
   visibility: visible;
   opacity: 1;
+  /* text-align: center; */
 }
 .task_item:hover .task_cont {
   transform: rotate(-90deg) scale(1);
@@ -126,11 +95,32 @@
 .task_item:hover .task_cont > li {
   transform: rotate(90deg);
 }
+.task_wrap > li:hover {
+  width: 25rem;
+  height: 25rem;
+}
+.task_item:hover > .task_in {
+  color: #fff;
+  background: #242424;
+  align-items: center;
+}
+/* 컨텐츠별 이미지, 색상 변경 보류 */
+/* .task_item:nth-child(1):hover > .task_in {
+  color: #fff;
+  background: #242424;
+}
+.task_item:nth-child(2):hover > .task_in {
+  color: #fff;
+  background: #242424;
+}
+.task_item:nth-child(3):hover > .task_in {
+  color: #fff;
+  background: #242424;
+} */
 .task_cont > li:hover {
   background: rgba(255, 255, 255, 0.5);
-  transition: 0.3s ease-in-out;
+  transition: all 0.3s ease;
 }
-
 .task_cont a {
   width: 100%;
   height: 100%;
@@ -141,9 +131,8 @@
   font-weight: 600;
   text-decoration: none;
   color: #000;
-  transition: 0.3s ease-in-out;
+  transition: all 0.3s ease;
 }
-/* task_title */
 a::after {
   position: absolute;
   top: 0;
@@ -151,8 +140,7 @@ a::after {
   font-size: 1.8rem;
   color: #fff;
   white-space: nowrap;
-  transition: 0.3s ease-in-out;
-  /* padding: 1rem 0; */
+  transition: all 0.3s ease;
 }
 /* personal project */
 .task_item:first-of-type li:first-child a::after {
@@ -160,11 +148,11 @@ a::after {
   top: -1rem;
 }
 .task_item:first-of-type li:nth-child(2) a::after {
-  content: "Bredit ( Elice track )";
+  content: "Bredit ( Elice )";
   top: 1rem;
 }
 .task_item:first-of-type li:nth-child(3) a::after {
-  content: "CarryAll ( Elice track )";
+  content: "CarryAll ( Elice )";
   top: 1rem;
 }
 .task_item:first-of-type li:nth-child(4) a::after {
@@ -187,7 +175,6 @@ a::after {
 .task_item:nth-of-type(2) li:nth-child(4) a::after {
   content: "메이크샵";
   top: 1rem;
-  /* white-space: pre-wrap; */
 }
 /* maintenance */
 .task_item:nth-of-type(3) li:nth-child(1) a::after {

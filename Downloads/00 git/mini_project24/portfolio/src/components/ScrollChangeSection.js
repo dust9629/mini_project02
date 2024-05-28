@@ -3,26 +3,31 @@ import React, { useEffect, useRef } from "react";
 function ScrollChangeSection({
   children,
   threshold,
-  defaultBgClass = "norm_mode", // 기본 배경색 클래스
-  changeBgClass = "dark_mode", // 변경될 배경색 클래스
+  defaultBgClass = "norm_mode",
+  changeBgClass = "dark_mode",
+  onScrollChange,
 }) {
-  const sectionRef = useRef(null); // DOM 참조를 저장
+  const sectionRef = useRef(null);
 
   useEffect(() => {
     const handleScroll = () => {
       const position = window.pageYOffset;
       if (sectionRef.current) {
-        if (position > threshold) {
+        const isAboveThreshold = position > threshold;
+        if (isAboveThreshold) {
           sectionRef.current.classList.add(changeBgClass);
         } else {
           sectionRef.current.classList.remove(changeBgClass);
+        }
+        if (onScrollChange) {
+          onScrollChange(isAboveThreshold); // 콜백 함수 호출
         }
       }
     };
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [threshold, changeBgClass]);
+  }, [threshold, changeBgClass, onScrollChange]);
 
   return (
     <div ref={sectionRef} className={defaultBgClass}>

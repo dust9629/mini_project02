@@ -27,10 +27,11 @@ function CursorFollower() {
         width: "15px",
         height: "15px",
         borderRadius: "50%",
-        background: "#ff4500",
+        background: "#6238ff",
         pointerEvents: "none", // 클릭 불가능하도록 설정
         zIndex: 99999, // 다른 요소들 위에 오도록 설정
         transition: "left 0.05s linear, top 0.05s linear",
+        mixBlendMode: "difference",
       }}
     />
   );

@@ -43,7 +43,12 @@ function TaskContents({ titles, addClass, removeClass, urlLinks }) {
                         top: "50%",
                       }}
                     >
-                      <a href={links[itemIndex]} className="modal">
+                      <a
+                        href={links[itemIndex]}
+                        target="_blank"
+                        className="modal"
+                        rel="noopener noreferrer"
+                      >
                         {itemIndex + 1}
                       </a>
                     </li>

@@ -207,7 +207,7 @@ function App() {
             <ul className="nav_wrap left">
               <li>
                 <StyledLink
-                  href="https://www.notion.so/d6fb630e6b9d4158b2c6436af844c3dc"
+                  href="https://plant-meteoroid-5fc.notion.site/db5c782daa9f47c2b58720b0827cbec6?pvs=4"
                   target="_blank"
                 >
                   Contact
@@ -351,26 +351,6 @@ function App() {
   //       <li>Team_project</li>
   //       <li>A-Z</li>
   //     </ul>
-  //   );
-  // }
-
-  // function Modal() {
-  //   return (
-  //     <div className="Modal_wrap" style={{ display: modal ? "block" : "none" }}>
-  //       <h3 className="modal_tit">How to.</h3>
-  //       <p className="sub_tit">How to create this page.</p>
-  //       <div className="modal_conts">
-  //         <ul>
-  //           <li>HTML</li>
-  //           <li>CSS</li>
-  //           <li>React / JS</li>
-  //           <li>Styled-component</li>
-  //         </ul>
-  //       </div>
-  //       <p className="close_btn" onClick={hideModal}>
-  //         {/* <img src={Close} alt="close" /> */}
-  //       </p>
-  //     </div>
   //   );
   // }
 }

@@ -1,17 +1,22 @@
 import React from "react";
 import "./Modal.css";
-import Close from "../assets/images/icon_close.png"; // Close 이미지 경로 확인
+import Close from "../assets/images/icon_close.png";
+import ProjectFE from "../assets/images/project_FE.png";
 import TeamProject from "./TeamProject"; // TeamProject 컴포넌트 경로 확인
 
 function Modal({ content, onClose }) {
+  console.log("Modal content:", content); // 현재 모달의 content 값을 로그로 출력
+
   const renderContent = () => {
     switch (content) {
       case "teamProject":
+        console.log("Rendering TeamProject");
         return <TeamProject />;
       case "howTo":
+        console.log("Rendering HowTo");
         return (
           <div className="modal_wrap">
-            <h3 style={{ color: "#fff" }}>Project Description</h3>
+            <h3>Project Description</h3>
             <ul>
               <li>
                 <h6>2024.04.01 ~ 2024.04.19</h6>
@@ -19,14 +24,14 @@ function Modal({ content, onClose }) {
               </li>
               <li className="modal_main">
                 <div className="left">
-                  <img src="" />
+                  <img src={ProjectFE} alt="project image" />
                 </div>
                 <div className="right"></div>
               </li>
               <li className="modal_cont02">
                 <dl>
                   <dt>Tech Stack</dt>
-                  <dd>HTML</dd>
+                  <dd>{/* <img src={} /> */}</dd>
                   <dd>CSS</dd>
                   <dd>JavaScript</dd>
                 </dl>
@@ -51,6 +56,7 @@ function Modal({ content, onClose }) {
           </div>
         );
       default:
+        console.log("Rendering default case");
         return <div>No content specified</div>;
     }
   };

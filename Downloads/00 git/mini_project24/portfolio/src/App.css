@@ -345,35 +345,7 @@ footer .footer_wrap h3 {
 }
 
 /* Modal.css */
-.Modal_wrap {
-  width: 80vw;
-  max-width: 150rem;
-  height: 70vh;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #242424;
-  padding: 4rem;
-  border-radius: 8px;
-  box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.1);
-  z-index: 9999;
-  display: none;
-}
-.close_btn {
-  position: absolute;
-  top: 2rem;
-  right: 2rem;
-  width: 2rem;
-  height: 2rem;
-  cursor: pointer;
-}
-.close_btn img {
-  width: 100%;
-}
-.modal_tit {
-  font-size: 4rem;
-}
+
 @media screen and (max-width: 650px) {
   nav {
     display: none;

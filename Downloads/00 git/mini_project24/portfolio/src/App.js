@@ -5,6 +5,7 @@ import "./App.css";
 import TeamProject from "./components/TeamProject";
 // import Contact from "./components/Contact";
 // import AtoZ from "./components/AtoZ";
+import Modal from "./components/Modal";
 import ImageGallery from "./components/ImageGallery";
 import TimeDisplay from "./components/TimeDisplay";
 import ScrollChangeSection from "./components/ScrollChangeSection";
@@ -54,10 +55,17 @@ function App() {
     transition: all 0.3s ease;
   `;
 
+  // modal 기능 구현
   const [modal, setModal] = useState(false);
-  const showModal = () => setModal(true);
+  const [modalContent, setModalContent] = useState(null);
+
+  const showModal = (content) => {
+    setModalContent(content);
+    setModal(true);
+  };
   const hideModal = () => setModal(false);
 
+  // scroll interaction
   const navRef = useRef(null);
   const section01Ref = useRef(null);
   const footerRef = useRef(null);
@@ -187,7 +195,7 @@ function App() {
   return (
     <div>
       <CursorFollower />
-      <Modal />
+      {modal && <Modal content={modalContent} onClose={hideModal} />}
       <Router>
         <div className="App">
           {showTopButton && (
@@ -208,8 +216,11 @@ function App() {
             </ul>
             <ul className="nav_wrap right">
               <li>
-                <StyledLink onClick={showModal} className="modal">
-                  TeamProject
+                <StyledLink
+                  onClick={() => showModal("teamProject")}
+                  className="modal"
+                >
+                  Team_Project
                 </StyledLink>
               </li>
               <li>
@@ -285,7 +296,7 @@ function App() {
         className="section03"
         style={{ backgroundColor: sectionBgColor }}
       >
-        <div className="how_to modal" onClick={showModal}>
+        <div className="how_to modal" onClick={() => showModal("howTo")}>
           <img src={howTxtImage} alt="How to text description" />
         </div>
         <h2 style={{ color: fontColor }}>Color-Hex Code</h2>
@@ -343,25 +354,25 @@ function App() {
   //   );
   // }
 
-  function Modal() {
-    return (
-      <div className="Modal_wrap" style={{ display: modal ? "block" : "none" }}>
-        <h3 className="modal_tit">How to.</h3>
-        <p className="sub_tit">How to create this page.</p>
-        <div className="modal_conts">
-          <ul>
-            <li>HTML</li>
-            <li>CSS</li>
-            <li>React / JS</li>
-            <li>Styled-component</li>
-          </ul>
-        </div>
-        <p className="close_btn" onClick={hideModal}>
-          {/* <img src={Close} alt="close" /> */}
-        </p>
-      </div>
-    );
-  }
+  // function Modal() {
+  //   return (
+  //     <div className="Modal_wrap" style={{ display: modal ? "block" : "none" }}>
+  //       <h3 className="modal_tit">How to.</h3>
+  //       <p className="sub_tit">How to create this page.</p>
+  //       <div className="modal_conts">
+  //         <ul>
+  //           <li>HTML</li>
+  //           <li>CSS</li>
+  //           <li>React / JS</li>
+  //           <li>Styled-component</li>
+  //         </ul>
+  //       </div>
+  //       <p className="close_btn" onClick={hideModal}>
+  //         {/* <img src={Close} alt="close" /> */}
+  //       </p>
+  //     </div>
+  //   );
+  // }
 }
 
 export default App;

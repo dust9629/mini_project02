@@ -1,25 +1,25 @@
 import React from "react";
 import "./Modal.css";
-import ProjectB from "../assets/images/project_Breadit.png";
-import Stack01 from "../assets/images/icon_stack01.png";
-import Stack02 from "../assets/images/icon_stack02.png";
-import Stack03 from "../assets/images/icon_stack03.png";
-import Stack04 from "../assets/images/icon_stack04.png";
-import Stack05 from "../assets/images/icon_stack05.png";
-import Stack06 from "../assets/images/icon_stack06.png";
-import Stack07 from "../assets/images/icon_stack07.png";
-import Stack08 from "../assets/images/icon_stack08.png";
+import ProjectB from "../../assets/images/project_Breadit.png";
+import Stack01 from "../../assets/images/icon_stack01.png";
+import Stack02 from "../../assets/images/icon_stack02.png";
+import Stack03 from "../../assets/images/icon_stack03.png";
+import Stack04 from "../../assets/images/icon_stack04.png";
+import Stack05 from "../../assets/images/icon_stack05.png";
+import Stack06 from "../../assets/images/icon_stack06.png";
+import Stack07 from "../../assets/images/icon_stack07.png";
+import Stack08 from "../../assets/images/icon_stack08.png";
 
-import Stack09 from "../assets/images/icon_stack09.png";
-import Stack10 from "../assets/images/icon_stack10.png";
-import Stack11 from "../assets/images/icon_stack11.png";
-import Stack12 from "../assets/images/icon_stack12.png";
-import Stack13 from "../assets/images/icon_stack13.png";
-import Stack14 from "../assets/images/icon_stack14.png";
-import Stack15 from "../assets/images/icon_stack15.png";
-import Stack16 from "../assets/images/icon_stack16.png";
+import Stack09 from "../../assets/images/icon_stack09.png";
+import Stack10 from "../../assets/images/icon_stack10.png";
+import Stack11 from "../../assets/images/icon_stack11.png";
+import Stack12 from "../../assets/images/icon_stack12.png";
+import Stack13 from "../../assets/images/icon_stack13.png";
+import Stack14 from "../../assets/images/icon_stack14.png";
+import Stack15 from "../../assets/images/icon_stack15.png";
+import Stack16 from "../../assets/images/icon_stack16.png";
 
-function TeamProject() {
+function TeamProject({ onClose }) {
   return (
     <div className="modal_wrap">
       <h3>Project Description</h3>
@@ -47,14 +47,16 @@ function TeamProject() {
               <strong>Breadit</strong> - 빵, 디저트 맛집 탐방 커뮤니티
             </h5>
             <div className="conts_desc">
-              오마카세 맛집, 분위기 좋은 파인다이닝이 있는 곳은 많지만 “디저트를
-              위한, 전국의 수천만 빵덕후들을 위한 곳은 없을까?” 에서 시작한
-              프로젝트로 대략 4주에 걸쳐 기획 / 디자인 / 개발을 진행했습니다.
+              오마카세 맛 집, 분위기 좋은 파인다이닝은 많은데 디저트 맛집
+              데이터는 왜 없을까? 라는 물음에서 전국의 수많은 빵덕후들을 위한
+              프로젝트를 진행 했습니다. 4주 동안 기획, 디자인, 개발 과정을 거쳐
+              단순히 좋은 결과물 만이 아니라 최상의 팀워크로 인해 우수상을
+              수상한 프로젝트입니다.
               <br />
               <br />
-              프론트엔드 3인, 백엔드 3인으로 진행했으며 탄탄한 기획부터 각자의
-              포지션 에서 열심히 제작하여 우수상을 거머쥘 수 있게 된 프로젝트
-              입니다.
+              프론트엔드 3인, 백엔드 3인으로 진행했으며 기획과 디자인 영역도
+              적절한 분배를 하여 기획, ERD 작성, 와이어 프레임, 스토리 보드,
+              디자인, 발표 자료까지 모두 탄탄하게 작업할 수 있었습니다.
             </div>
           </div>
         </li>
@@ -111,7 +113,7 @@ function TeamProject() {
             </dd>
             <dd>
               <a
-                href="https://frontend-nine-tau-41.vercel.app/"
+                href="https://plant-meteoroid-5fc.notion.site/Bredit-KDT-03bebeb0588640c2a3a9b7a03db95df2?pvs=4"
                 target="_blank"
                 rel="noopener noreferrer"
               >

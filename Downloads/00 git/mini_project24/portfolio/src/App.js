@@ -2,10 +2,10 @@ import React, { useState, useRef, useEffect, useCallback } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import styled from "styled-components";
 import "./App.css";
-import TeamProject from "./components/TeamProject";
+import TeamProject from "./components/Modal/TeamProject";
 // import Contact from "./components/Contact";
 // import AtoZ from "./components/AtoZ";
-import Modal from "./components/Modal";
+import Modal from "./components/Modal/Modal";
 import ImageGallery from "./components/ImageGallery";
 import TimeDisplay from "./components/TimeDisplay";
 import ScrollChangeSection from "./components/ScrollChangeSection";
@@ -60,10 +60,20 @@ function App() {
   const [modalContent, setModalContent] = useState(null);
 
   const showModal = (content) => {
-    setModalContent(content);
+    if (content === "teamProject") {
+      setModalContent(<TeamProject />);
+    } else if (content === "howTo") {
+      setModalContent(<Modal />);
+    }
     setModal(true);
+    document.body.style.overflowY = "none";
   };
-  const hideModal = () => setModal(false);
+
+  const hideModal = () => {
+    setModal(false);
+    setModalContent(null);
+    document.body.style.overflowY = "auto";
+  };
 
   // scroll interaction
   const navRef = useRef(null);
@@ -76,26 +86,37 @@ function App() {
 
   const [wheelActive, setWheelActive] = useState(true);
 
+  const [accumulatedDelta, setAccumulatedDelta] = useState(0);
+  const DELTA_THRESHOLD = 90; // 이동을 트리거하는 누적 deltaY 값 (임계값)
+
   const handleWheel = useCallback(
     (e) => {
-      if (!wheelActive) return;
-      e.preventDefault(); // Prevent the default scroll behavior
-      const { deltaY } = e;
-      if (deltaY > 0 && currentSection < sectionRefs.length - 1) {
-        setCurrentSection((prevSection) => {
-          const newSection = prevSection + 1;
-          updateTopButton(newSection);
-          return newSection;
-        });
-      } else if (deltaY < 0 && currentSection > 0) {
-        setCurrentSection((prevSection) => {
-          const newSection = prevSection - 1;
-          updateTopButton(newSection);
-          return newSection;
-        });
+      if (!wheelActive || modal) return; // 모달이 활성화된 경우 스크롤 이벤트 무시
+      e.preventDefault();
+      let newAccumulatedDelta = accumulatedDelta + e.deltaY;
+
+      if (Math.abs(newAccumulatedDelta) >= DELTA_THRESHOLD) {
+        if (
+          newAccumulatedDelta > 0 &&
+          currentSection < sectionRefs.length - 1
+        ) {
+          setCurrentSection((prevSection) => {
+            const newSection = prevSection + 1;
+            updateTopButton(newSection);
+            return newSection;
+          });
+        } else if (newAccumulatedDelta < 0 && currentSection > 0) {
+          setCurrentSection((prevSection) => {
+            const newSection = prevSection - 1;
+            updateTopButton(newSection);
+            return newSection;
+          });
+        }
+        newAccumulatedDelta = 0;
       }
+      setAccumulatedDelta(newAccumulatedDelta);
     },
-    [currentSection, wheelActive]
+    [currentSection, wheelActive, accumulatedDelta, modal] // modal을 의존성 배열에 추가
   );
   const handleNavScrollChange = (isDark) => {
     const navElement = navRef.current;
@@ -195,7 +216,7 @@ function App() {
   return (
     <div>
       <CursorFollower />
-      {modal && <Modal content={modalContent} onClose={hideModal} />}
+      {/* {modal && <Modal content={modalContent} onClose={hideModal} />} */}
       <Router>
         <div className="App">
           {showTopButton && (
@@ -216,16 +237,13 @@ function App() {
             </ul>
             <ul className="nav_wrap right">
               <li>
-                <StyledLink
-                  onClick={() => showModal("teamProject")}
-                  className="modal"
-                >
+                <StyledLink onClick={() => showModal("teamProject")}>
                   Team_Project
                 </StyledLink>
               </li>
               <li>
                 <StyledLink
-                  href="https://treasure-wolverine-e71.notion.site/1-fc9676cdd64449ecbafa9e5536053ac9?pvs=4"
+                  href="https://www.notion.so/Resume-db5c782daa9f47c2b58720b0827cbec6#db84fa62d2064a6ba4bfbf9c20c3c62a"
                   target="_blank"
                 >
                   A-Z
@@ -235,7 +253,7 @@ function App() {
           </nav>
 
           <div className="mo_nav_wrap">
-            <p onClick={showModal}>menu</p>
+            {/* <p onClick={showModal}>menu</p> */}
           </div>
         </div>
       </Router>
@@ -262,14 +280,28 @@ function App() {
       </div>
 
       {/* Modal */}
-      {modal && (
+      {/* {modal && (
         <div className="Modal_wrap" style={{ display: "block" }}>
           <div className="modal_conts">
             <TeamProject />
           </div>
           <p className="close_btn" onClick={hideModal}>
-            <img src={Close} alt="close" />
+            
           </p>
+        </div>
+      )} */}
+
+      {modal && (
+        <div
+          className="Modal_wrap"
+          style={{ display: modal ? "block" : "none" }}
+        >
+          <div className="modal_conts">
+            {modalContent}
+            <button className="close_btn" onClick={hideModal}>
+              <img src={Close} alt="close" />
+            </button>
+          </div>
         </div>
       )}
 
@@ -299,19 +331,19 @@ function App() {
         <div className="how_to modal" onClick={() => showModal("howTo")}>
           <img src={howTxtImage} alt="How to text description" />
         </div>
-        <h2 style={{ color: fontColor }}>Color-Hex Code</h2>
-        <div className="color_wrap">
-          <ColorPicker
-            onBackgroundColorChange={setSectionBgColor}
-            onFontColorChange={setFontColor}
-          />
-          <h5 style={{ color: fontColor }}>Aa</h5>
-        </div>
-      </div>
 
-      {/* foot - footer */}
-      <footer ref={footerRef}>
-        <ul className="footer_wrap">
+        <div className="color_wrap">
+          <h2 style={{ color: fontColor }}>Color-Hex Code</h2>
+          <div className="color_conts">
+            <ColorPicker
+              onBackgroundColorChange={setSectionBgColor}
+              onFontColorChange={setFontColor}
+            />
+            <h5 style={{ color: fontColor }}>Aa</h5>
+          </div>
+        </div>
+
+        <ul className="footer_wrap" ref={footerRef}>
           <li>
             <h3>김은지 / dust9629@gmail.com</h3>
             <p>2021_2024 - ⓒ Lindsey_dust9629</p>
@@ -340,7 +372,7 @@ function App() {
             </a>
           </li>
         </ul>
-      </footer>
+      </div>
     </div>
   );
 

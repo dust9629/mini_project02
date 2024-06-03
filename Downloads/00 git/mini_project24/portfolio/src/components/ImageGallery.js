@@ -37,7 +37,7 @@ function ImageGallery() {
     if (loadedImages.length === imageNames.length) {
       let clearIndex = 0;
 
-      const clearDelay = 100;
+      const clearDelay = 300;
       const clearTimer = setInterval(() => {
         if (clearIndex < loadedImages.length) {
           setLoadedImages((prevImages) =>
@@ -48,7 +48,7 @@ function ImageGallery() {
           clearInterval(clearTimer);
           setLoadingIndex(0);
         }
-      }, clearDelay - 100 * clearIndex);
+      }, clearDelay - 300 * clearIndex);
     }
   }, [loadedImages.length]);
 

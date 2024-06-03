@@ -117,7 +117,8 @@ nav.dark_nav a:hover {
 .section01 {
   color: #000;
   position: relative;
-  height: 100vh;
+  min-height: 100vh;
+  height: auto;
   overflow: hidden;
 }
 .section01 .main_bg {
@@ -231,7 +232,8 @@ nav.dark_nav a:hover {
 /* section02 */
 .section02 {
   position: relative;
-  height: 100vh;
+  min-height: 100vh;
+  height: auto;
   padding: 10rem clamp(4.5rem, 4.1667vw, 8rem);
   color: #fff;
 }
@@ -275,10 +277,16 @@ nav.dark_nav a:hover {
 /* section03 */
 .section03 {
   position: relative;
-  height: 90vh;
+  height: 100%;
+  min-height: 100vh;
+  /* height: 90%; */
   padding: 10rem clamp(4.5rem, 4.1667vw, 8rem);
+  padding-bottom: 0;
   color: #fff;
 }
+/* .color_wrap {
+  height: 90%;
+} */
 .section03 .how_to {
   position: absolute;
   top: 20rem;
@@ -302,7 +310,7 @@ nav.dark_nav a:hover {
   font-weight: 500;
   margin: 9.5rem 0 5.5rem 0;
 }
-.section03 .color_wrap {
+.section03 .color_conts {
   display: flex;
   width: 100%;
   align-items: end;
@@ -314,13 +322,15 @@ nav.dark_nav a:hover {
   text-align: right;
 }
 /* footer */
-footer {
+/* footer {
   color: rgba(255, 255, 255, 0.8);
   height: 10vh;
   background: #000;
   padding: 0 clamp(4.5rem, 4.1667vw, 8rem);
-}
-footer .footer_wrap {
+} */
+.footer_wrap {
+  color: rgba(255, 255, 255, 0.8);
+  background: #000;
   border-top: 1px solid rgba(255, 255, 255, 0.3);
   list-style: none;
   padding-top: 3rem;
@@ -328,7 +338,7 @@ footer .footer_wrap {
   justify-content: space-between;
   align-items: end;
 }
-footer .footer_wrap h3 {
+.footer_wrap h3 {
   font-size: 1.5rem;
   font-weight: 500;
   margin-bottom: 0.5rem;

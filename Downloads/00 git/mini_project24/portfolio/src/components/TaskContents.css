@@ -2,6 +2,7 @@
   list-style: none;
   padding: 0;
   margin: 0 auto;
+  margin-top: 5%;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   justify-items: center;
@@ -12,7 +13,9 @@
 }
 .task_wrap > li {
   width: 45rem;
+  width: clamp(25rem, 23.4375vw, 45rem);
   height: 45rem;
+  height: clamp(25rem, 23.4375vw, 45rem);
   position: relative;
   transition: all 0.3s ease;
 }
